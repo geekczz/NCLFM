@@ -1,0 +1,20 @@
+--cpu Cortex-M0
+".\objects\system_stm32f0xx.o"
+".\objects\startup_stm32f030.o"
+".\objects\stm32f0xx_it.o"
+".\objects\lx12864b_driver.o"
+".\objects\electronicscaledriver.o"
+".\objects\stm32f0xx_rcc.o"
+".\objects\stm32f0xx_syscfg.o"
+".\objects\stm32f0xx_usart.o"
+".\objects\stm32f0xx_gpio.o"
+".\objects\stm32f0xx_dma.o"
+".\objects\stm32f0xx_misc.o"
+".\objects\stm32f0xx_tim.o"
+".\objects\stm32f0xx_flash.o"
+".\objects\main.o"
+".\objects\bsp.o"
+--strict --scatter ".\Objects\WeighingFillMachine.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\WeighingFillMachine.map" -o .\Objects\WeighingFillMachine.axf

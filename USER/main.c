@@ -23,6 +23,7 @@ uint8_t SETTING_DisplayLine_1[6] = {12,13,14,45,46,0xff};
 uint8_t SETTING_DisplayLine_2[4] = {4,5,6,0xff};
 uint8_t SETTING_DisplayLine_3[4] = {7,8,9,0xff};
 uint8_t SETTING_DisplayLine_4[8] = {31,31,31,31,31,31,31,0xff};
+uint8_t SETTING_DisplayLine_5[5] = {45,46,47,2,0xff};
 
 uint8_t WARNING_DisplayLine_1[6] = {32,33,34,35,36,0xff};
 uint8_t WARNING_DisplayLine_2[2] = {37,0xff};
@@ -46,7 +47,7 @@ int8_t ST_InputPointer = 6;
 uint16_t i = 0;
 uint16_t Counter_j = 0;
 
-float BotleFillUpPID_P = 70;
+int16_t BotleFillUpPID_P = 70;
 uint8_t FillUpHoldCounter = 0;
 int16_t BottleFillUp_Err = 0;
 int16_t SpeedOutput = 0;
@@ -99,22 +100,22 @@ int main(void)
 /**************************用户菜单程序段开始*************************/
 USERMENU:
 	display(0x00,0x00);
-	LcmPutChineseStr(10,1,USERMENU_DisplayLine_1,0);
-	LcmPutChar(58,1,0);
-	LcmPutChineseStr(10,3,USERMENU_DisplayLine_2,0);
-	LcmPutChar(58,3,0);
-	LcmPutChineseStr(10,5,USERMENU_DisplayLine_3,0);
-	LcmPutChar(58,5,0);
-	LcmPutChineseStr(10,7,USERMENU_DisplayLine_4,0);
-	LcmPutChar(58,7,0);
+	LcmPutChineseStr(3,1,USERMENU_DisplayLine_1,0);
+	LcmPutChar(51,1,0);
+	LcmPutChineseStr(3,3,USERMENU_DisplayLine_2,0);
+	LcmPutChar(51,3,0);
+	LcmPutChineseStr(3,5,USERMENU_DisplayLine_3,0);
+	LcmPutChar(51,5,0);
+	LcmPutChineseStr(3,7,USERMENU_DisplayLine_4,0);
+	LcmPutChar(51,7,0);
 	
 	LcmPutChineseChar(114,5,0);
 	LcmPutChineseChar(114,7,0);
 
-	LcmPutNum(74,1,maindata.uFillCounter,5);
-	LcmPutNum(74,3,maindata.uFillSpeed,2);
-	LcmPutNum(74,5,maindata.uFillSetWeight,4);
-	LcmPutNum(74,7,maindata.sFillActWeight,4);
+	LcmPutNum(66,1,maindata.uFillCounter,5);
+	LcmPutNum(66,3,maindata.uFillSpeed,2);
+	LcmPutNum(66,5,maindata.uFillSetWeight,5);
+	LcmPutNum(66,7,maindata.sFillActWeight,5);
 	
 	while(1)
 	{	
@@ -124,8 +125,8 @@ USERMENUSCANLOOP:
 		{
 			Counter_j = 0;
 			GetWeight();
-			LcmPutNum(74,7,maindata.sFillActWeight,4);
-			LcmPutNum(74,1,maindata.uFillCounter,5);
+			LcmPutNum(66,7,maindata.sFillActWeight,5);
+			LcmPutNum(66,1,maindata.uFillCounter,5);
 		}
 		
 		GPIO_SetBits(LED_STOP);
@@ -162,7 +163,7 @@ USERMENUSCANLOOP:
 			}
 			//计数器归零
 			maindata.uFillCounter = 0;
-			LcmPutNum(74,1,maindata.uFillCounter,5);
+			LcmPutNum(66,1,maindata.uFillCounter,5);
 			
 			while(mark != KEY_NONE)
 			{
@@ -240,21 +241,21 @@ SETTINGBEGIN:
 	DataMain2Setting();
 	
 	display(0x00,0x00);
-	LcmPutChineseStr(10,1,SETTING_DisplayLine_1,0);
-	LcmPutChar(90,1,0);
-	LcmPutChineseStr(10,3,SETTING_DisplayLine_2,0);
-	LcmPutChar(58,3,0);
-	LcmPutChineseStr(10,5,SETTING_DisplayLine_3,0);
-	LcmPutChar(58,5,0);
+	LcmPutChineseStr(3,1,SETTING_DisplayLine_1,0);
+	LcmPutChar(83,1,0);
+	LcmPutChineseStr(3,3,SETTING_DisplayLine_2,0);
+	LcmPutChar(51,3,0);
+	LcmPutChineseStr(3,5,SETTING_DisplayLine_3,0);
+	LcmPutChar(51,5,0);
 	
-	LcmPutChineseStr(10,7,SETTING_DisplayLine_4,0);
+	LcmPutChineseStr(3,7,SETTING_DisplayLine_4,0);
 	
 	LcmPutChineseChar(114,5,0);
 	
-	LcmPutChineseChar(106,1,settingdata.uSETPeelOn?29:30);
+	LcmPutChineseChar(99,1,settingdata.uSETPeelOn?29:30);
 	
-	LcmPutNum(74,3,settingdata.sSETSpeed[1]*10+settingdata.sSETSpeed[0],2);
-	LcmPutNum(74,5,settingdata.sSETSetWeight[3]*1000+settingdata.sSETSetWeight[2]*100+settingdata.sSETSetWeight[1]*10+settingdata.sSETSetWeight[0],4);
+	LcmPutNum(66,3,settingdata.sSETSpeed[1]*10+settingdata.sSETSpeed[0],2);
+	LcmPutNum(66,5,settingdata.sSETSetWeight[3]*1000+settingdata.sSETSetWeight[2]*100+settingdata.sSETSetWeight[1]*10+settingdata.sSETSetWeight[0],4);
 	
 	while(1)
 	{
@@ -328,7 +329,7 @@ SETTINGBEGIN:
 				mark = GetKey();
 			}
 			ST_InputPointer = ST_InputPointer + 1;
-			if(ST_InputPointer>6) ST_InputPointer = 0;
+			if(ST_InputPointer>7) ST_InputPointer = 0;
 		}
 		if(mark == KEY2)
 		{
@@ -338,7 +339,7 @@ SETTINGBEGIN:
 				mark = GetKey();
 			}
 			ST_InputPointer = ST_InputPointer - 1;
-			if(ST_InputPointer<0)ST_InputPointer = 6;
+			if(ST_InputPointer<0)ST_InputPointer = 7;
 		}
 		if(mark == KEY3)
 		{
@@ -349,15 +350,16 @@ SETTINGBEGIN:
 			}
 			switch(ST_InputPointer)
 			{
-				case 6 :
+				case 7 :
 					if(settingdata.uSETPeelOn == 1)settingdata.uSETPeelOn = 0;
 					else settingdata.uSETPeelOn = 1;
 					break;
+				case 6 :
 				case 5 :
-				case 4 :
 					settingdata.sSETSpeed[ST_InputPointer-4] -= 1;
 					if(settingdata.sSETSpeed[ST_InputPointer-4] < 0)settingdata.sSETSpeed[ST_InputPointer-4] = 9;
 					break;
+				case 4 :
 				case 3 :
 				case 2 :
 				case 1 :
@@ -378,15 +380,16 @@ SETTINGBEGIN:
 			}
 			switch(ST_InputPointer)
 			{
-				case 6 :
+				case 7 :
 					if(settingdata.uSETPeelOn == 1)settingdata.uSETPeelOn = 0;
 					else settingdata.uSETPeelOn = 1;
 					break;
+				case 6 :
 				case 5 :
-				case 4 :
 					settingdata.sSETSpeed[ST_InputPointer-4] += 1;
 					if(settingdata.sSETSpeed[ST_InputPointer-4] > 9)settingdata.sSETSpeed[ST_InputPointer-4] = 0;
 					break;
+				case 4 :
 				case 3 :
 				case 2 :
 				case 1 :
@@ -403,28 +406,32 @@ SETTINGBEGIN:
 		/******************************屏幕刷新程序段******************************/
 		switch(ST_InputPointer)
 		{
-			case 6 :
+			case 7 :
 				LcmPutTurnChar(101,5,settingdata.sSETSetWeight[0]+4,0);
-				LcmPutChineseTurnChar(106,1,settingdata.uSETPeelOn?29:30,BlackMark);
-				LcmPutTurnChar(74,3,settingdata.sSETSpeed[1]+4,0);
+				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,BlackMark);
+				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,0);
+				break;
+			case 6 :
+				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,0);
+				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,BlackMark);
+				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,0);
 				break;
 			case 5 :
-				LcmPutChineseTurnChar(106,1,settingdata.uSETPeelOn?29:30,0);
-				LcmPutTurnChar(74,3,settingdata.sSETSpeed[1]+4,BlackMark);
-				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,0);
+				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,0);
+				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,BlackMark);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,0);
 				break;
 			case 4 :
-				LcmPutTurnChar(74,3,settingdata.sSETSpeed[1]+4,0);
-				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,BlackMark);
-				LcmPutTurnChar(74,5,settingdata.sSETSetWeight[3]+4,0);
-				break;
-			case 3 :
 				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,0);
-				LcmPutTurnChar(74,5,settingdata.sSETSetWeight[3]+4,BlackMark);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,BlackMark);
+				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[3]+4,0);
+			case 3 :
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,0);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,BlackMark);
 				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[2]+4,0);
 				break;
 			case 2 :
-				LcmPutTurnChar(74,5,settingdata.sSETSetWeight[3]+4,0);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,0);
 				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[2]+4,BlackMark);
 				LcmPutTurnChar(92,5,settingdata.sSETSetWeight[1]+4,0);
 				break;
@@ -436,7 +443,7 @@ SETTINGBEGIN:
 			case 0 :
 				LcmPutTurnChar(92,5,settingdata.sSETSetWeight[1]+4,0);
 				LcmPutTurnChar(101,5,settingdata.sSETSetWeight[0]+4,BlackMark);
-				LcmPutChineseTurnChar(106,1,settingdata.uSETPeelOn?29:30,0);
+				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,0);
 				break;
 			default:
 				break;
@@ -490,7 +497,7 @@ FILLUPBEGIN:
 		}
 		
 		GetWeight();
-		LcmPutNum(74,7,maindata.sFillActWeight,4);
+		LcmPutNum(66,7,maindata.sFillActWeight,4);
 		
 		BottleFillUp_Err = maindata.uFillSetWeight - maindata.sFillActWeight;
 		if(BottleFillUp_Err < 1)
@@ -498,7 +505,7 @@ FILLUPBEGIN:
 			BottleFillUp_Err = 0;
 			WaterPumpControl(0);
 			maindata.uFillCounter++;
-			LcmPutNum(74,1,maindata.uFillCounter,5);
+			LcmPutNum(66,1,maindata.uFillCounter,5);
 			goto CHECKSTATEOK;
 		}
 		else if(BottleFillUp_Err > 15)BottleFillUp_Err = 15;
@@ -535,7 +542,7 @@ CHECKSTATEOK:
 			}
 			
 			GetWeight();
-			LcmPutNum(74,7,maindata.sFillActWeight,4);
+			LcmPutNum(66,7,maindata.sFillActWeight,4);
 		}
 
 		while(1)
@@ -559,7 +566,7 @@ WAITFORBOTTLE:
 			}
 			
 			GetWeight();
-			LcmPutNum(74,7,maindata.sFillActWeight,4);
+			LcmPutNum(66,7,maindata.sFillActWeight,4);
 			
 			if(maindata.sFillActWeight > (-maindata.sBottleWeight+5))
 			{
@@ -574,7 +581,7 @@ WAITFORBOTTLE:
 				while(EndUpTime > bspdata.systime)
 				{
 					GetWeight();
-					LcmPutNum(74,7,maindata.sFillActWeight,4);
+					LcmPutNum(66,7,maindata.sFillActWeight,4);
 					if((maindata.sFillActWeight - WeightCache>3)||(maindata.sFillActWeight - WeightCache<-3)) goto WAITFORBOTTLE;
 				}
 				goto FILLUPBEGIN;

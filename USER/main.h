@@ -23,7 +23,8 @@ typedef struct SETTING_DATA
 {
 	uint8_t uSETPeelOn;
 	int8_t sSETSpeed[2];
-	int8_t sSETSetWeight[4];
+	int8_t sSETSetWeight[5];
+	int8_t sSETFillUpPID_P[2];
 }SETTING_DATA;
 
 extern MAIN_DATA maindata;
