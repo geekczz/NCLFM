@@ -43,7 +43,7 @@ uint8_t FootMark = 1;
 
 uint8_t BlackMark = 0;
 int32_t sDataTemp = 0;
-int8_t ST_InputPointer = 6;
+int8_t ST_InputPointer = 9;
 uint16_t i = 0;
 uint16_t Counter_j = 0;
 
@@ -247,15 +247,16 @@ SETTINGBEGIN:
 	LcmPutChar(51,3,0);
 	LcmPutChineseStr(3,5,SETTING_DisplayLine_3,0);
 	LcmPutChar(51,5,0);
-	
-	LcmPutChineseStr(3,7,SETTING_DisplayLine_4,0);
+	LcmPutChineseStr(3,7,SETTING_DisplayLine_5,0);
+	LcmPutChar(67,7,0);
 	
 	LcmPutChineseChar(114,5,0);
 	
 	LcmPutChineseChar(99,1,settingdata.uSETPeelOn?29:30);
 	
 	LcmPutNum(66,3,settingdata.sSETSpeed[1]*10+settingdata.sSETSpeed[0],2);
-	LcmPutNum(66,5,settingdata.sSETSetWeight[3]*1000+settingdata.sSETSetWeight[2]*100+settingdata.sSETSetWeight[1]*10+settingdata.sSETSetWeight[0],4);
+	LcmPutNum(66,5,settingdata.sSETSetWeight[4]*10000+settingdata.sSETSetWeight[3]*1000+settingdata.sSETSetWeight[2]*100+settingdata.sSETSetWeight[1]*10+settingdata.sSETSetWeight[0],5);
+	LcmPutNum(82,7,settingdata.sSETFillUpPID_P[1]*10 + settingdata.sSETFillUpPID_P[0],2);
 	
 	while(1)
 	{
@@ -329,7 +330,7 @@ SETTINGBEGIN:
 				mark = GetKey();
 			}
 			ST_InputPointer = ST_InputPointer + 1;
-			if(ST_InputPointer>7) ST_InputPointer = 0;
+			if(ST_InputPointer>9) ST_InputPointer = 0;
 		}
 		if(mark == KEY2)
 		{
@@ -339,7 +340,7 @@ SETTINGBEGIN:
 				mark = GetKey();
 			}
 			ST_InputPointer = ST_InputPointer - 1;
-			if(ST_InputPointer<0)ST_InputPointer = 7;
+			if(ST_InputPointer<0)ST_InputPointer = 9;
 		}
 		if(mark == KEY3)
 		{
@@ -350,22 +351,27 @@ SETTINGBEGIN:
 			}
 			switch(ST_InputPointer)
 			{
-				case 7 :
+				case 9 :
 					if(settingdata.uSETPeelOn == 1)settingdata.uSETPeelOn = 0;
 					else settingdata.uSETPeelOn = 1;
 					break;
+				case 8 :
+				case 7 :
+					settingdata.sSETSpeed[ST_InputPointer-7] -= 1;
+					if(settingdata.sSETSpeed[ST_InputPointer-7] < 0)settingdata.sSETSpeed[ST_InputPointer-7] = 9;
+					break;
 				case 6 :
 				case 5 :
-					settingdata.sSETSpeed[ST_InputPointer-4] -= 1;
-					if(settingdata.sSETSpeed[ST_InputPointer-4] < 0)settingdata.sSETSpeed[ST_InputPointer-4] = 9;
-					break;
 				case 4 :
 				case 3 :
 				case 2 :
+					settingdata.sSETSetWeight[ST_InputPointer-2] -= 1;
+					if(settingdata.sSETSetWeight[ST_InputPointer-2] < 0)settingdata.sSETSetWeight[ST_InputPointer-2] = 9;
+					break;
 				case 1 :
 				case 0 :
-					settingdata.sSETSetWeight[ST_InputPointer] -= 1;
-					if(settingdata.sSETSetWeight[ST_InputPointer] < 0)settingdata.sSETSetWeight[ST_InputPointer] = 9;
+					settingdata.sSETFillUpPID_P[ST_InputPointer] -= 1;
+					if(settingdata.sSETFillUpPID_P[ST_InputPointer] < 0)settingdata.sSETFillUpPID_P[ST_InputPointer] = 9;
 					break;
 				default :
 					break;
@@ -380,22 +386,27 @@ SETTINGBEGIN:
 			}
 			switch(ST_InputPointer)
 			{
-				case 7 :
+				case 9 :
 					if(settingdata.uSETPeelOn == 1)settingdata.uSETPeelOn = 0;
 					else settingdata.uSETPeelOn = 1;
 					break;
+				case 8 :
+				case 7 :
+					settingdata.sSETSpeed[ST_InputPointer-7] += 1;
+					if(settingdata.sSETSpeed[ST_InputPointer-7] > 9)settingdata.sSETSpeed[ST_InputPointer-7] = 0;
+					break;
 				case 6 :
 				case 5 :
-					settingdata.sSETSpeed[ST_InputPointer-4] += 1;
-					if(settingdata.sSETSpeed[ST_InputPointer-4] > 9)settingdata.sSETSpeed[ST_InputPointer-4] = 0;
-					break;
 				case 4 :
 				case 3 :
 				case 2 :
+					settingdata.sSETSetWeight[ST_InputPointer-2] += 1;
+					if(settingdata.sSETSetWeight[ST_InputPointer-2] > 9)settingdata.sSETSetWeight[ST_InputPointer-2] = 0;
+					break;
 				case 1 :
 				case 0 :
-					settingdata.sSETSetWeight[ST_InputPointer] += 1;
-					if(settingdata.sSETSetWeight[ST_InputPointer] > 9)settingdata.sSETSetWeight[ST_InputPointer] = 0;
+					settingdata.sSETFillUpPID_P[ST_InputPointer] += 1;
+					if(settingdata.sSETFillUpPID_P[ST_InputPointer] > 9)settingdata.sSETFillUpPID_P[ST_InputPointer] = 0;
 					break;
 				default :
 					break;
@@ -406,43 +417,54 @@ SETTINGBEGIN:
 		/******************************ÆÁÄ»Ë¢ÐÂ³ÌÐò¶Î******************************/
 		switch(ST_InputPointer)
 		{
-			case 7 :
-				LcmPutTurnChar(101,5,settingdata.sSETSetWeight[0]+4,0);
+			case 9 :
+				LcmPutTurnChar(91,7,settingdata.sSETFillUpPID_P[0]+4,0);
 				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,BlackMark);
 				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,0);
 				break;
-			case 6 :
+			case 8 :
 				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,0);
 				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,BlackMark);
-				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,0);
+				LcmPutTurnChar(75,3,settingdata.sSETSpeed[0]+4,0);
+				break;
+			case 7 :
+				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,0);
+				LcmPutTurnChar(75,3,settingdata.sSETSpeed[0]+4,BlackMark);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,0);
+				break;
+			case 6 :
+				LcmPutTurnChar(75,3,settingdata.sSETSpeed[0]+4,0);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,BlackMark);
+				LcmPutTurnChar(75,5,settingdata.sSETSetWeight[3]+4,0);
 				break;
 			case 5 :
-				LcmPutTurnChar(66,3,settingdata.sSETSpeed[1]+4,0);
-				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,BlackMark);
-				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,0);
+				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,0);
+				LcmPutTurnChar(75,5,settingdata.sSETSetWeight[3]+4,BlackMark);
+				LcmPutTurnChar(84,5,settingdata.sSETSetWeight[2]+4,0);
 				break;
 			case 4 :
-				LcmPutTurnChar(83,3,settingdata.sSETSpeed[0]+4,0);
-				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,BlackMark);
-				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[3]+4,0);
+				LcmPutTurnChar(75,5,settingdata.sSETSetWeight[3]+4,0);
+				LcmPutTurnChar(84,5,settingdata.sSETSetWeight[2]+4,BlackMark);
+				LcmPutTurnChar(93,5,settingdata.sSETSetWeight[1]+4,0);
+				break;
 			case 3 :
-				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[4]+4,0);
-				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,BlackMark);
-				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[2]+4,0);
+				LcmPutTurnChar(84,5,settingdata.sSETSetWeight[2]+4,0);
+				LcmPutTurnChar(93,5,settingdata.sSETSetWeight[1]+4,BlackMark);
+				LcmPutTurnChar(102,5,settingdata.sSETSetWeight[0]+4,0);
 				break;
 			case 2 :
-				LcmPutTurnChar(66,5,settingdata.sSETSetWeight[3]+4,0);
-				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[2]+4,BlackMark);
-				LcmPutTurnChar(92,5,settingdata.sSETSetWeight[1]+4,0);
+				LcmPutTurnChar(93,5,settingdata.sSETSetWeight[1]+4,0);
+				LcmPutTurnChar(102,5,settingdata.sSETSetWeight[0]+4,BlackMark);
+				LcmPutTurnChar(82,7,settingdata.sSETFillUpPID_P[1]+4,0);
 				break;
 			case 1 :
-				LcmPutTurnChar(83,5,settingdata.sSETSetWeight[2]+4,0);
-				LcmPutTurnChar(92,5,settingdata.sSETSetWeight[1]+4,BlackMark);
-				LcmPutTurnChar(101,5,settingdata.sSETSetWeight[0]+4,0);
+				LcmPutTurnChar(102,5,settingdata.sSETSetWeight[0]+4,0);
+				LcmPutTurnChar(82,7,settingdata.sSETFillUpPID_P[1]+4,BlackMark);
+				LcmPutTurnChar(91,7,settingdata.sSETFillUpPID_P[0]+4,0);
 				break;
 			case 0 :
-				LcmPutTurnChar(92,5,settingdata.sSETSetWeight[1]+4,0);
-				LcmPutTurnChar(101,5,settingdata.sSETSetWeight[0]+4,BlackMark);
+				LcmPutTurnChar(82,7,settingdata.sSETFillUpPID_P[1]+4,0);
+				LcmPutTurnChar(91,7,settingdata.sSETFillUpPID_P[0]+4,BlackMark);
 				LcmPutChineseTurnChar(99,1,settingdata.uSETPeelOn?29:30,0);
 				break;
 			default:
@@ -709,7 +731,7 @@ void MainDataInit(void)
 	{
 		maindata.uFillPeelOn = 1;
 	}
-	if(maindata.uFillSetWeight > 9999 || maindata.uFillSetWeight == 0)
+	if(maindata.uFillSetWeight > 99999 || maindata.uFillSetWeight == 0)
 	{
 		maindata.uFillSetWeight = 200;
 	}
@@ -738,7 +760,7 @@ void WaterPumpControl(uint16_t PumpSpeed)
 
 void DataMain2Setting(void)
 {
-	uint16_t DataTemp = 0;
+	uint32_t DataTemp = 0;
 	
 	settingdata.uSETPeelOn = maindata.uFillPeelOn;
 	
@@ -747,17 +769,23 @@ void DataMain2Setting(void)
 	settingdata.sSETSpeed[0] = DataTemp%10;
 	
 	DataTemp = maindata.uFillSetWeight;
-	settingdata.sSETSetWeight[3] = DataTemp/1000;
+	settingdata.sSETSetWeight[4] = DataTemp/10000;
+	settingdata.sSETSetWeight[3] = DataTemp%10000/1000;
 	settingdata.sSETSetWeight[2] = DataTemp%1000/100;
 	settingdata.sSETSetWeight[1] = DataTemp%100/10;
 	settingdata.sSETSetWeight[0] = DataTemp%10;
+	
+	DataTemp = BotleFillUpPID_P;
+	settingdata.sSETFillUpPID_P[1] = DataTemp/10;
+	settingdata.sSETFillUpPID_P[0] = DataTemp%10;
 }
 
 void DataSetting2Main(void)
 {
 	maindata.uFillPeelOn = settingdata.uSETPeelOn;
 	maindata.uFillSpeed = settingdata.sSETSpeed[1] * 10 + settingdata.sSETSpeed[0];
-	maindata.uFillSetWeight = settingdata.sSETSetWeight[3] * 1000 + settingdata.sSETSetWeight[2] * 100 + settingdata.sSETSetWeight[1] * 10 + settingdata.sSETSetWeight[0];
+	maindata.uFillSetWeight = settingdata.sSETSetWeight[4] * 10000 + settingdata.sSETSetWeight[3] * 1000 + settingdata.sSETSetWeight[2] * 100 + settingdata.sSETSetWeight[1] * 10 + settingdata.sSETSetWeight[0];
+	BotleFillUpPID_P = settingdata.sSETFillUpPID_P[1] * 10 + settingdata.sSETFillUpPID_P[0];
 }
 
 void GetWeight(void)

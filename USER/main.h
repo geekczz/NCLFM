@@ -11,8 +11,8 @@ typedef struct MAIN_DATA
 {
 	uint32_t uFillCounter;
 	uint8_t  uFillSpeed;
-	uint16_t uFillSetWeight;
-	int16_t  sFillActWeight;
+	uint32_t uFillSetWeight;
+	int32_t  sFillActWeight;
 	uint8_t  uFillPeelOn;
 	int32_t  sBottleWeight;
 	uint8_t  uFillCountinue;

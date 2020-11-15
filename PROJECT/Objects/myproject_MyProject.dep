@@ -42,7 +42,7 @@ F (..\CMSIS\system_stm32f0xx.h)(0x54808D0E)()
 F (..\CMSIS\startup_stm32f030.s)(0x54808D0E)(--cpu Cortex-M0 -g --apcs=interwork -IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0--pd "__UVISION_VERSION SETA 531" --pd "STM32F030x6 SETA 1"--list .\listings\startup_stm32f030.lst --xref -o .\objects\startup_stm32f030.o --depend .\objects\startup_stm32f030.d)
 F (..\DRIVER\stm32f0xx_it.c)(0x5EBE0478)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\stm32f0xx_it.o --omf_browse .\objects\stm32f0xx_it.crf --depend .\objects\stm32f0xx_it.d)
 I (..\DRIVER\stm32f0xx_it.h)(0x54809128)
-I (..\USER\main.h)(0x5F1E3BD6)
+I (..\USER\main.h)(0x5FB0A972)
 I (..\DRIVER\GLOBAL.H)(0x5F1E492F)
 I (..\CMSIS\stm32f0xx.h)(0x5A6DE486)
 I (..\CMSIS\core_cm0.h)(0x547D9682)
@@ -81,7 +81,7 @@ I (..\DRIVER\LX12864B_Driver.h)(0x5ECD26FB)
 I (..\DRIVER\ElectronicScaleDriver.h)(0x5F1E48FB)
 F (..\DRIVER\stm32f0xx_conf.h)(0x54809108)()
 F (..\DRIVER\stm32f0xx_it.h)(0x54809128)()
-F (..\DRIVER\LX12864B_Driver.c)(0x5F1D97F8)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\lx12864b_driver.o --omf_browse .\objects\lx12864b_driver.crf --depend .\objects\lx12864b_driver.d)
+F (..\DRIVER\LX12864B_Driver.c)(0x5FAB3FCF)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\lx12864b_driver.o --omf_browse .\objects\lx12864b_driver.crf --depend .\objects\lx12864b_driver.d)
 I (..\DRIVER\LX12864B_Driver.h)(0x5ECD26FB)
 I (..\DRIVER\GLOBAL.h)(0x5F1E492F)
 I (..\CMSIS\stm32f0xx.h)(0x5A6DE486)
@@ -118,7 +118,7 @@ I (..\USER\BSP.H)(0x5F1E4AE1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5EC775FC)
 I (..\DRIVER\ElectronicScaleDriver.h)(0x5F1E48FB)
-I (..\USER\main.h)(0x5F1E3BD6)
+I (..\USER\main.h)(0x5FB0A972)
 F (..\DRIVER\LX12864B_Driver.h)(0x5ECD26FB)()
 F (..\DRIVER\ElectronicScaleDriver.c)(0x5F1E492F)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\electronicscaledriver.o --omf_browse .\objects\electronicscaledriver.crf --depend .\objects\electronicscaledriver.d)
 I (..\DRIVER\ElectronicScaleDriver.h)(0x5F1E48FB)
@@ -157,7 +157,7 @@ I (..\USER\BSP.H)(0x5F1E4AE1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5EC775FC)
 I (..\DRIVER\LX12864B_Driver.h)(0x5ECD26FB)
-I (..\USER\main.h)(0x5F1E3BD6)
+I (..\USER\main.h)(0x5FB0A972)
 F (..\DRIVER\ElectronicScaleDriver.h)(0x5F1E48FB)()
 F (..\LIB\src\stm32f0xx_rcc.c)(0x54808D13)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\stm32f0xx_rcc.o --omf_browse .\objects\stm32f0xx_rcc.crf --depend .\objects\stm32f0xx_rcc.d)
 I (..\LIB\inc\stm32f0xx_rcc.h)(0x54808D11)
@@ -407,8 +407,8 @@ I (..\LIB\inc\stm32f0xx_tim.h)(0x54808D10)
 I (..\LIB\inc\stm32f0xx_usart.h)(0x54808D11)
 I (..\LIB\inc\stm32f0xx_wwdg.h)(0x54808D10)
 I (..\LIB\inc\stm32f0xx_misc.h)(0x54808D10)
-F (..\USER\main.c)(0x5FA8B654)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (..\USER\main.h)(0x5F1E3BD6)
+F (..\USER\main.c)(0x5FB0A96D)(--c99 -c --cpu Cortex-M0 -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\LIB\inc -I ..\DRIVER -I ..\USER-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Users\zhizhao\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.0.0-D__UVISION_VERSION="531" -DSTM32F030x6 -DSTM32F030 -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (..\USER\main.h)(0x5FB0A972)
 I (..\DRIVER\GLOBAL.H)(0x5F1E492F)
 I (..\CMSIS\stm32f0xx.h)(0x5A6DE486)
 I (..\CMSIS\core_cm0.h)(0x547D9682)
@@ -483,4 +483,4 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC775FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5EC775FC)
 I (..\DRIVER\LX12864B_Driver.h)(0x5ECD26FB)
 I (..\DRIVER\ElectronicScaleDriver.h)(0x5F1E48FB)
-I (..\USER\main.h)(0x5F1E3BD6)
+I (..\USER\main.h)(0x5FB0A972)
