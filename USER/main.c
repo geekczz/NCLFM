@@ -519,7 +519,7 @@ FILLUPBEGIN:
 		}
 		
 		GetWeight();
-		LcmPutNum(66,7,maindata.sFillActWeight,4);
+		LcmPutNum(66,7,maindata.sFillActWeight,5);
 		
 		BottleFillUp_Err = maindata.uFillSetWeight - maindata.sFillActWeight;
 		if(BottleFillUp_Err < 1)
@@ -564,7 +564,7 @@ CHECKSTATEOK:
 			}
 			
 			GetWeight();
-			LcmPutNum(66,7,maindata.sFillActWeight,4);
+			LcmPutNum(66,7,maindata.sFillActWeight,5);
 		}
 
 		while(1)
@@ -588,7 +588,7 @@ WAITFORBOTTLE:
 			}
 			
 			GetWeight();
-			LcmPutNum(66,7,maindata.sFillActWeight,4);
+			LcmPutNum(66,7,maindata.sFillActWeight,5);
 			
 			if(maindata.sFillActWeight > (-maindata.sBottleWeight+5))
 			{
@@ -603,7 +603,7 @@ WAITFORBOTTLE:
 				while(EndUpTime > bspdata.systime)
 				{
 					GetWeight();
-					LcmPutNum(66,7,maindata.sFillActWeight,4);
+					LcmPutNum(66,7,maindata.sFillActWeight,5);
 					if((maindata.sFillActWeight - WeightCache>3)||(maindata.sFillActWeight - WeightCache<-3)) goto WAITFORBOTTLE;
 				}
 				goto FILLUPBEGIN;
